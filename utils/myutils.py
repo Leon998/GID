@@ -115,7 +115,7 @@ def check_trigger_null(trigger_flag):
     return trigger_flag
 
 
-def plot_target_box(x, im, color=(128, 128, 128), label=None, line_thickness=2):
+def plot_target_box(x, im, color=(0, 0, 225), label=None, line_thickness=2):
     """一般会用在detect.py中在nms之后变量每一个预测框，再将每个预测框画在原图上
     使用opencv在原图im上画一个bounding box
     :params x: 预测得到的bounding box  [x1 y1 x2 y2]
