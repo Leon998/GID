@@ -17,8 +17,10 @@ from utils.myutils import *
 
 
 def detect(save_img=False):
-    classes = [32, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 64, 65, 67, 74, 76]
     source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
+
+    classes = [32, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 64, 65, 67, 74, 76]
+
     source = '/home/shixu/My_env/Dataset/object/fork/022.mp4'
     save_img = not opt.nosave and not source.endswith('.txt')  # save inference images
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
