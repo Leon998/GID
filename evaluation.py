@@ -229,22 +229,22 @@ def detect(save_img=False):
                         NPC += 1
                     last_pred = target["cls"]
                     target_xyxy = target["xyxy"]
-                    im1 = info_on_img(im0, gn, zoom=[0.5, 0.75], label="Box_x_loc: " + str(round(target["xywh"][0], 3)))
-                    im1 = info_on_img(im1, gn, zoom=[0.5, 0.8], label="Box_y_loc: " + str(round(target["xywh"][1], 3)))
-                    im1 = info_on_img(im1, gn, zoom=[0.5, 0.85], label="Box_size: " + str(round(target["box_size"], 3)))
-                    im1 = info_on_img(im1, gn, zoom=[0.5, 0.9], label="Box_rate: " + str(round(target["box_rate"], 3)))
-                    im1 = info_on_img(im1, gn, zoom=[0.5, 0.95],
+                    im1 = info_on_img(im0, gn, zoom=[0.48, 0.7], label="Box_x_loc: " + str(round(target["xywh"][0], 3)))
+                    im1 = info_on_img(im1, gn, zoom=[0.48, 0.75], label="Box_y_loc: " + str(round(target["xywh"][1], 3)))
+                    im1 = info_on_img(im1, gn, zoom=[0.48, 0.8], label="Box_size: " + str(round(target["box_size"], 3)))
+                    im1 = info_on_img(im1, gn, zoom=[0.48, 0.85], label="Box_rate: " + str(round(target["box_rate"], 3)))
+                    im1 = info_on_img(im1, gn, zoom=[0.48, 0.9],
                                       label="Score: " + str(round(target["score"].item(), 3)))
                     im1 = plot_target_box(target_xyxy, im1, line_thickness=2)
                     trigger_flag = check_trigger(target["box_rate"], target["xywh"], target["cls"], trigger_flag)
                     if trigger_flag[0]:
                         # 判断是否在grasping
-                        im1 = text_on_img(im1, gn, zoom=[0.05, 0.95], label="Grasping " + trigger_flag[1])
+                        im1 = text_on_img(im1, gn, zoom=[0.02, 0.95], label="Grasping " + trigger_flag[1])
                         if not_trigger:
                             eval_inst = save_eval_instance(eval_inst, target["cls"], ground_truth)
                             not_trigger = 0
                     else:
-                        im1 = text_on_img(im1, gn, zoom=[0.05, 0.95], label="Targeting: " + target["cls"])
+                        im1 = text_on_img(im1, gn, zoom=[0.02, 0.95], label="Targeting: " + target["cls"])
                     stream_log.append(frame_log)
 
                 else:
@@ -252,14 +252,14 @@ def detect(save_img=False):
                     eval_seq = save_eval_seq(eval_seq, "None", ground_truth, float(0))
                     trigger_flag = check_trigger_null(trigger_flag)
                     if trigger_flag[0]:
-                        im1 = text_on_img(im1, gn, zoom=[0.05, 0.95], label="Grasping " + trigger_flag[1])
+                        im1 = text_on_img(im1, gn, zoom=[0.02, 0.95], label="Grasping " + trigger_flag[1])
                     else:
-                        im1 = text_on_img(im1, gn, zoom=[0.05, 0.95], label="No Target")
+                        im1 = text_on_img(im1, gn, zoom=[0.02, 0.95], label="No Target")
                     stream_log.append(["None"])
 
-                im1 = text_on_img(im1, gn, zoom=[0.05, 0.1], color=[0, 0, 255], label="Frame " + str(frame_idx))
+                im1 = text_on_img(im1, gn, zoom=[0.02, 0.1], color=[0, 0, 255], label="Frame " + str(frame_idx))
                 # 记录当前帧Trigger_flag的状态
-                im1 = text_on_img(im1, gn, zoom=[0.05, 0.2], color=[0, 0, 255],
+                im1 = text_on_img(im1, gn, zoom=[0.02, 0.2], color=[0, 0, 255],
                                   label="Flag on" if trigger_flag[0] else "Flag off")
 
                 if not not_trigger:
