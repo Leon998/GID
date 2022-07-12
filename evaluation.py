@@ -26,7 +26,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 def detect(save_img=False):
     weights, view_img, save_txt, imgsz, trace = opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
-    object, ground_truth, step, thres, project = opt.object, opt.object, opt.step, opt.thres, opt.project
+    object, ground_truth, step, dist, project = opt.object, opt.object, opt.step, opt.dist, opt.project
     classes = [32, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 64, 65, 67, 74, 76]
     name = object
     ground_truth = object
@@ -78,7 +78,8 @@ def detect(save_img=False):
 
     # ================================================== Hyper-parameters ============================================ #
     step = step  # 累积投票的时候，往前看几步
-    Box_thres = [thres for idx in range(80)]
+    # Box_thres = dist2thres(dist)  # Thres differ from each class
+    Box_thres = [0.8 for idx in range(80)]  # All class thres are the same
     
     for source in source_list:
         not_trigger = 1
@@ -346,7 +347,7 @@ def detect(save_img=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'weights/yolov7.pt', help='model.pt path(s)')
+    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'weights/yolov7x.pt', help='model.pt path(s)')
     parser.add_argument('--object', type=str, default='apple', help='file/dir/URL/glob, 0 for webcam')
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='object confidence threshold')
@@ -365,7 +366,7 @@ if __name__ == '__main__':
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     parser.add_argument('--step', type=int, default=1, help='vote step')
-    parser.add_argument('--thres', type=float, default=0.8, help='box threshold')
+    parser.add_argument('--dist', type=float, default=30, help='distance and thres realtionship')
     opt = parser.parse_args()
     print(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))

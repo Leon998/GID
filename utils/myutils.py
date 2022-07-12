@@ -3,22 +3,6 @@ import cv2
 import numpy as np
 
 
-# Box_thres = [0.8 for idx in range(80)]
-# Box_thres[39] = 0.8  # bottle
-# Box_thres[41] = 0.7  # cup
-# Box_thres[44] = 0.6  # spoon
-# Box_thres[49] = 0.5  # orange
-# Box_thres[64] = 0.5  # mouse
-# Box_thres[76] = 0.5  # scissors
-
-Grasp_type = ['Grasping' for idx in range(80)]
-Grasp_type[39] = 'Medium wrap: '  # bottle
-Grasp_type[41] = 'Medium wrap: '  # cup
-Grasp_type[44] = 'Tip pinch: '  # spoon
-Grasp_type[49] = 'Power sphere: '  # orange
-Grasp_type[64] = 'Tripod: '  # mouse
-Grasp_type[76] = 'Tripod: '  # scissors
-
 def get_centeroffset(xyxy, gn, normalize=True):
     """
     计算的是边界框中心与整个画面中心的L2距离（默认为像素距离，normalize后为归一化的结果），其中
@@ -64,7 +48,7 @@ def get_box_size(xywh):
     return size
 
 def count_score(box_rate, coffset):
-    # box_rate = torch.tensor(box_rate)
+    box_rate = torch.tensor(box_rate)
     # coffset = torch.tensor(coffset)
     score = box_rate / coffset
     return score
@@ -275,3 +259,135 @@ def flag2target(name):
     else:
         target_num = 76
     return target_num
+
+BOX_THRES = [0.8 for idx in range(80)]
+BOX_THRES_15 = BOX_THRES
+BOX_THRES_15[32] = 0.7  # sports ball
+BOX_THRES_15[39] = 0.90  # bottle
+BOX_THRES_15[40] = 0.90  # wine glass
+BOX_THRES_15[41] = 0.8  # cup
+BOX_THRES_15[42] = 0.90  # fork
+BOX_THRES_15[43] = 0.90  # knife
+BOX_THRES_15[44] = 0.90  # spoon
+BOX_THRES_15[45] = 0.8  # bowl
+BOX_THRES_15[46] = 0.82  # banana
+BOX_THRES_15[47] = 0.75  # apple
+BOX_THRES_15[49] = 0.75  # orange
+BOX_THRES_15[64] = 0.75  # mouse
+BOX_THRES_15[65] = 0.80  # remote
+BOX_THRES_15[67] = 0.80  # cell phone
+BOX_THRES_15[74] = 0.75  # clock
+BOX_THRES_15[76] = 0.80  # scissors
+
+BOX_THRES_20 = BOX_THRES
+BOX_THRES_20[32] = 0.52  # sports ball
+BOX_THRES_20[39] = 0.90  # bottle
+BOX_THRES_20[40] = 0.98  # wine glass
+BOX_THRES_20[41] = 0.66  # cup
+BOX_THRES_20[42] = 0.90  # fork
+BOX_THRES_20[43] = 0.90  # knife
+BOX_THRES_20[44] = 0.90  # spoon
+BOX_THRES_20[45] = 0.75  # bowl
+BOX_THRES_20[46] = 0.82  # banana
+BOX_THRES_20[47] = 0.50  # apple
+BOX_THRES_20[49] = 0.51  # orange
+BOX_THRES_20[64] = 0.48  # mouse
+BOX_THRES_20[65] = 0.80  # remote
+BOX_THRES_20[67] = 0.80  # cell phone
+BOX_THRES_20[74] = 0.70  # clock
+BOX_THRES_20[76] = 0.80  # scissors
+
+BOX_THRES_25 = BOX_THRES
+BOX_THRES_25[32] = 0.39  # sports ball
+BOX_THRES_25[39] = 0.90  # bottle
+BOX_THRES_25[40] = 0.85  # wine glass
+BOX_THRES_25[41] = 0.48  # cup
+BOX_THRES_25[42] = 0.70  # fork
+BOX_THRES_25[43] = 0.70  # knife
+BOX_THRES_25[44] = 0.70  # spoon
+BOX_THRES_25[45] = 0.55  # bowl
+BOX_THRES_25[46] = 0.68  # banana
+BOX_THRES_25[47] = 0.40  # apple
+BOX_THRES_25[49] = 0.40  # orange
+BOX_THRES_25[64] = 0.39  # mouse
+BOX_THRES_25[65] = 0.65  # remote
+BOX_THRES_25[67] = 0.65  # cell phone
+BOX_THRES_25[74] = 0.52  # clock
+BOX_THRES_25[76] = 0.62  # scissors
+
+BOX_THRES_30 = BOX_THRES
+BOX_THRES_30[32] = 0.31  # sports ball
+BOX_THRES_30[39] = 0.89  # bottle
+BOX_THRES_30[40] = 0.70  # wine glass
+BOX_THRES_30[41] = 0.40  # cup
+BOX_THRES_30[42] = 0.63  # fork
+BOX_THRES_30[43] = 0.63  # knife
+BOX_THRES_30[44] = 0.63  # spoon
+BOX_THRES_30[45] = 0.51  # bowl
+BOX_THRES_30[46] = 0.56  # banana
+BOX_THRES_30[47] = 0.32  # apple
+BOX_THRES_30[49] = 0.33  # orange
+BOX_THRES_30[64] = 0.33  # mouse
+BOX_THRES_30[65] = 0.55  # remote
+BOX_THRES_30[67] = 0.55  # cell phone
+BOX_THRES_30[74] = 0.40  # clock
+BOX_THRES_30[76] = 0.54  # scissors
+
+BOX_THRES_35 = BOX_THRES
+BOX_THRES_35[32] = 0.28  # sports ball
+BOX_THRES_35[39] = 0.75  # bottle
+BOX_THRES_35[40] = 0.56  # wine glass
+BOX_THRES_35[41] = 0.34  # cup
+BOX_THRES_35[42] = 0.52  # fork
+BOX_THRES_35[43] = 0.52  # knife
+BOX_THRES_35[44] = 0.52  # spoon
+BOX_THRES_35[45] = 0.45  # bowl
+BOX_THRES_35[46] = 0.48  # banana
+BOX_THRES_35[47] = 0.27  # apple
+BOX_THRES_35[49] = 0.28  # orange
+BOX_THRES_35[64] = 0.28  # mouse
+BOX_THRES_35[65] = 0.47  # remote
+BOX_THRES_35[67] = 0.47  # cell phone
+BOX_THRES_35[74] = 0.35  # clock
+BOX_THRES_35[76] = 0.45  # scissors
+
+BOX_THRES_40 = BOX_THRES
+BOX_THRES_40[32] = 0.23
+BOX_THRES_40[39] = 0.65
+BOX_THRES_40[40] = 0.5
+BOX_THRES_40[41] = 0.3
+BOX_THRES_40[42] = 0.48
+BOX_THRES_40[43] = 0.48
+BOX_THRES_40[44] = 0.48
+BOX_THRES_40[45] = 0.40
+BOX_THRES_40[46] = 0.44
+BOX_THRES_40[47] = 0.23
+BOX_THRES_40[49] = 0.24
+BOX_THRES_40[64] = 0.24
+BOX_THRES_40[65] = 0.4
+BOX_THRES_40[67] = 0.4
+BOX_THRES_40[74] = 0.3
+BOX_THRES_40[76] = 0.38
+
+def dist2thres(dist):
+    if dist == 15:
+        thres = BOX_THRES_15
+    elif dist == 20:
+        thres = BOX_THRES_20
+    elif dist == 25:
+        thres = BOX_THRES_25
+    elif dist == 30:
+        thres = BOX_THRES_30
+    elif dist == 35:
+        thres = BOX_THRES_35
+    else:
+        thres = BOX_THRES_40
+    return thres
+
+# Grasp_type = ['Grasping' for idx in range(80)]
+# Grasp_type[39] = 'Medium wrap: '  # bottle
+# Grasp_type[41] = 'Medium wrap: '  # cup
+# Grasp_type[44] = 'Tip pinch: '  # spoon
+# Grasp_type[49] = 'Power sphere: '  # orange
+# Grasp_type[64] = 'Tripod: '  # mouse
+# Grasp_type[76] = 'Tripod: '  # scissors
