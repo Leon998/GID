@@ -78,8 +78,8 @@ def detect(save_img=False):
 
     # ================================================== Hyper-parameters ============================================ #
     step = step  # 累积投票的时候，往前看几步
-    Box_thres = dist2thres(dist)  # Thres differ from each class
-    # Box_thres = [thres for idx in range(80)]  # All class thres are the same
+    # Box_thres = dist2thres(dist)  # Thres differ from each class
+    Box_thres = [thres for idx in range(80)]  # All class thres are the same
     
     for source in source_list:
         not_trigger = 1
