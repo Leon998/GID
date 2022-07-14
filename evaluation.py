@@ -26,7 +26,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 def detect(save_img=False):
     weights, view_img, save_txt, imgsz, trace = opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
-    object, ground_truth, step, dist, project = opt.object, opt.object, opt.step, opt.dist, opt.project
+    object, ground_truth, step, dist, thres, project = opt.object, opt.object, opt.step, opt.dist, opt.thres, opt.project
     classes = [32, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 64, 65, 67, 74, 76]
     name = object
     ground_truth = object
@@ -78,8 +78,8 @@ def detect(save_img=False):
 
     # ================================================== Hyper-parameters ============================================ #
     step = step  # 累积投票的时候，往前看几步
-    # Box_thres = dist2thres(dist)  # Thres differ from each class
-    Box_thres = [0.8 for idx in range(80)]  # All class thres are the same
+    Box_thres = dist2thres(dist)  # Thres differ from each class
+    # Box_thres = [thres for idx in range(80)]  # All class thres are the same
     
     for source in source_list:
         not_trigger = 1
@@ -366,7 +366,8 @@ if __name__ == '__main__':
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     parser.add_argument('--step', type=int, default=1, help='vote step')
-    parser.add_argument('--dist', type=float, default=30, help='distance and thres realtionship')
+    parser.add_argument('--dist', type=int, default=20, help='distance and thres realtionship')
+    parser.add_argument('--thres', type=float, default=0.8, help='regular threshold')
     opt = parser.parse_args()
     print(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))

@@ -72,7 +72,7 @@ def vote_score(frame_log, class_score_log, step=3):
 
 def check_trigger(box_rate, xywh, cls, trigger_flag, x=1):
     # box_bool表示三个条件：框阈值比，框x位置，框y位置。x位置严格，y位置可以相对宽松一点
-    box_bool = box_rate > x and 0.33 < xywh[0] < 0.66 and 0.33 < xywh[1] < 0.66
+    box_bool = box_rate > x and 0.25 < xywh[0] < 0.75 and 0.25 < xywh[1] < 0.75
     if trigger_flag[0]:  # 上一时刻是抓的状态
         if cls == trigger_flag[1]:  # 如果还是要抓的目标
             if box_bool:  # 还在接近
@@ -260,8 +260,7 @@ def flag2target(name):
         target_num = 76
     return target_num
 
-BOX_THRES = [0.8 for idx in range(80)]
-BOX_THRES_15 = BOX_THRES
+BOX_THRES_15 = [0.8 for idx in range(80)]
 BOX_THRES_15[32] = 0.7  # sports ball
 BOX_THRES_15[39] = 0.90  # bottle
 BOX_THRES_15[40] = 0.90  # wine glass
@@ -269,7 +268,7 @@ BOX_THRES_15[41] = 0.8  # cup
 BOX_THRES_15[42] = 0.90  # fork
 BOX_THRES_15[43] = 0.90  # knife
 BOX_THRES_15[44] = 0.90  # spoon
-BOX_THRES_15[45] = 0.8  # bowl
+BOX_THRES_15[45] = 0.80  # bowl
 BOX_THRES_15[46] = 0.82  # banana
 BOX_THRES_15[47] = 0.75  # apple
 BOX_THRES_15[49] = 0.75  # orange
@@ -279,7 +278,7 @@ BOX_THRES_15[67] = 0.80  # cell phone
 BOX_THRES_15[74] = 0.75  # clock
 BOX_THRES_15[76] = 0.80  # scissors
 
-BOX_THRES_20 = BOX_THRES
+BOX_THRES_20 = [0.8 for idx in range(80)]
 BOX_THRES_20[32] = 0.52  # sports ball
 BOX_THRES_20[39] = 0.90  # bottle
 BOX_THRES_20[40] = 0.98  # wine glass
@@ -297,7 +296,7 @@ BOX_THRES_20[67] = 0.80  # cell phone
 BOX_THRES_20[74] = 0.70  # clock
 BOX_THRES_20[76] = 0.80  # scissors
 
-BOX_THRES_25 = BOX_THRES
+BOX_THRES_25 = [0.8 for idx in range(80)]
 BOX_THRES_25[32] = 0.39  # sports ball
 BOX_THRES_25[39] = 0.90  # bottle
 BOX_THRES_25[40] = 0.85  # wine glass
@@ -315,7 +314,7 @@ BOX_THRES_25[67] = 0.65  # cell phone
 BOX_THRES_25[74] = 0.52  # clock
 BOX_THRES_25[76] = 0.62  # scissors
 
-BOX_THRES_30 = BOX_THRES
+BOX_THRES_30 = [0.8 for idx in range(80)]
 BOX_THRES_30[32] = 0.31  # sports ball
 BOX_THRES_30[39] = 0.89  # bottle
 BOX_THRES_30[40] = 0.70  # wine glass
@@ -333,7 +332,7 @@ BOX_THRES_30[67] = 0.55  # cell phone
 BOX_THRES_30[74] = 0.40  # clock
 BOX_THRES_30[76] = 0.54  # scissors
 
-BOX_THRES_35 = BOX_THRES
+BOX_THRES_35 = [0.8 for idx in range(80)]
 BOX_THRES_35[32] = 0.28  # sports ball
 BOX_THRES_35[39] = 0.75  # bottle
 BOX_THRES_35[40] = 0.56  # wine glass
@@ -351,23 +350,41 @@ BOX_THRES_35[67] = 0.47  # cell phone
 BOX_THRES_35[74] = 0.35  # clock
 BOX_THRES_35[76] = 0.45  # scissors
 
-BOX_THRES_40 = BOX_THRES
-BOX_THRES_40[32] = 0.23
-BOX_THRES_40[39] = 0.65
-BOX_THRES_40[40] = 0.5
-BOX_THRES_40[41] = 0.3
-BOX_THRES_40[42] = 0.48
-BOX_THRES_40[43] = 0.48
-BOX_THRES_40[44] = 0.48
-BOX_THRES_40[45] = 0.40
-BOX_THRES_40[46] = 0.44
-BOX_THRES_40[47] = 0.23
-BOX_THRES_40[49] = 0.24
-BOX_THRES_40[64] = 0.24
-BOX_THRES_40[65] = 0.4
-BOX_THRES_40[67] = 0.4
-BOX_THRES_40[74] = 0.3
-BOX_THRES_40[76] = 0.38
+BOX_THRES_40 = [0.8 for idx in range(80)]
+BOX_THRES_40[32] = 0.23  # sports ball
+BOX_THRES_40[39] = 0.65  # bottle
+BOX_THRES_40[40] = 0.50  # wine glass
+BOX_THRES_40[41] = 0.30  # cup
+BOX_THRES_40[42] = 0.48  # fork
+BOX_THRES_40[43] = 0.48  # knife
+BOX_THRES_40[44] = 0.48  # spoon
+BOX_THRES_40[45] = 0.40  # bowl
+BOX_THRES_40[46] = 0.44  # banana
+BOX_THRES_40[47] = 0.23  # apple
+BOX_THRES_40[49] = 0.24  # orange
+BOX_THRES_40[64] = 0.24  # mouse
+BOX_THRES_40[65] = 0.40  # remote
+BOX_THRES_40[67] = 0.40  # cell phone
+BOX_THRES_40[74] = 0.30  # clock
+BOX_THRES_40[76] = 0.38  # scissors
+
+BOX_THRES_OPT = [0.8 for idx in range(80)]
+BOX_THRES_40[32] = 0.70  # sports ball
+BOX_THRES_40[39] = 0.60  # bottle
+BOX_THRES_40[40] = 0.60  # wine glass
+BOX_THRES_40[41] = 0.70  # cup
+BOX_THRES_40[42] = 0.80  # fork
+BOX_THRES_40[43] = 0.60  # knife
+BOX_THRES_40[44] = 0.50  # spoon
+BOX_THRES_40[45] = 0.60  # bowl
+BOX_THRES_40[46] = 0.60  # banana
+BOX_THRES_40[47] = 0.80  # apple
+BOX_THRES_40[49] = 0.90  # orange
+BOX_THRES_40[64] = 0.60  # mouse
+BOX_THRES_40[65] = 0.70  # remote
+BOX_THRES_40[67] = 0.60  # cell phone
+BOX_THRES_40[74] = 0.80  # clock
+BOX_THRES_40[76] = 0.70  # scissors
 
 def dist2thres(dist):
     if dist == 15:
@@ -380,8 +397,10 @@ def dist2thres(dist):
         thres = BOX_THRES_30
     elif dist == 35:
         thres = BOX_THRES_35
-    else:
+    elif dist == 40:
         thres = BOX_THRES_40
+    else:
+        thres = BOX_THRES_OPT
     return thres
 
 # Grasp_type = ['Grasping' for idx in range(80)]
