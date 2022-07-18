@@ -31,7 +31,7 @@ def detect(save_img=False):
     name = object
     ground_truth = object
     # prepare the sources
-    filePath = '/home/shixu/My_env/Dataset/object/' + object
+    filePath = '/home/shixu/My_env/Dataset/switch/' + object
     name_list = os.listdir(filePath)
     name_list.sort()
     source_list = []
@@ -78,8 +78,12 @@ def detect(save_img=False):
 
     # ================================================== Hyper-parameters ============================================ #
     step = step  # 累积投票的时候，往前看几步
-    # Box_thres = dist2thres(dist)  # Thres differ from each class
-    Box_thres = [thres for idx in range(80)]  # All class thres are the same
+    if dist:
+        Box_thres = dist2thres(dist)  # Thres differ from each class
+        print('Using distance thresholds, dist=', dist)
+    if thres:
+        Box_thres = [thres for idx in range(80)]  # All class thres are the same
+        print('Using regular thresholds, thres=', thres)
     
     for source in source_list:
         not_trigger = 1
@@ -366,8 +370,8 @@ if __name__ == '__main__':
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     parser.add_argument('--step', type=int, default=1, help='vote step')
-    parser.add_argument('--dist', type=int, default=20, help='distance and thres realtionship')
-    parser.add_argument('--thres', type=float, default=0.8, help='regular threshold')
+    parser.add_argument('--dist', type=int, help='distance and thres realtionship')
+    parser.add_argument('--thres', type=float, help='regular threshold')
     opt = parser.parse_args()
     print(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))

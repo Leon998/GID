@@ -72,7 +72,7 @@ def vote_score(frame_log, class_score_log, step=3):
 
 def check_trigger(box_rate, xywh, cls, trigger_flag, x=1):
     # box_bool表示三个条件：框阈值比，框x位置，框y位置。x位置严格，y位置可以相对宽松一点
-    box_bool = box_rate > x and 0.33 < xywh[0] < 0.66 and 0.33 < xywh[1] < 0.66
+    box_bool = box_rate > x and 0.2 < xywh[0] < 0.8 and 0.2 < xywh[1] < 0.8
     if trigger_flag[0]:  # 上一时刻是抓的状态
         if cls == trigger_flag[1]:  # 如果还是要抓的目标
             if box_bool:  # 还在接近

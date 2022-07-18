@@ -40,7 +40,7 @@ matrix_polar = polarize(matrix)  # All items are -1 or 1
 df = pd.DataFrame(matrix,
                   index=[str(i) for i in range(0, 75)],#DataFrame的行标签设置为大写字母
                   columns=object_list)#设置DataFrame的列标签
-plt.figure(dpi=200, figsize=(10,8))
+plt.figure(dpi=200, figsize=(5,8))
 sns.heatmap(data=df,
             vmin=-1,
             vmax=1,
