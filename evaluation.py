@@ -31,7 +31,7 @@ def detect(save_img=False):
     name = object
     ground_truth = object
     # prepare the sources
-    filePath = '/home/shixu/My_env/Dataset/switch/' + object
+    filePath = '/home/shixu/My_env/Dataset/object/' + object
     name_list = os.listdir(filePath)
     name_list.sort()
     source_list = []
