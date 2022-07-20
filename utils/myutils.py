@@ -49,7 +49,6 @@ def get_box_size(xywh):
 
 def count_score(box_rate, coffset):
     box_rate = torch.tensor(box_rate)
-    # coffset = torch.tensor(coffset)
     score = box_rate / coffset
     return score
 

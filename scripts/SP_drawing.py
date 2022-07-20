@@ -47,5 +47,5 @@ sns.heatmap(data=df,
             cmap=sns.diverging_palette(10, 220, sep=10, n=11),#区分度显著色盘：sns.diverging_palette()使用
             annot=True, fmt=".2f", annot_kws={'size':5,'weight':'normal'},
            )
-plt.title("SP(location2)")
+plt.title("SP(location1)")
 plt.show()
