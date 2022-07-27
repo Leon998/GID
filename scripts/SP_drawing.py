@@ -19,13 +19,13 @@ def polarize(mat):
     tmp[tmp<=0] = -1
     tmp[tmp>0] = 1
     return tmp
-
-object_list = os.listdir('../evals')
+filepath = '../results/location1/'
+object_list = os.listdir(filepath)
 object_list.sort()
 file_list = []
 # All objects:
 for object in object_list:
-    file_list.append(str('../evals/' + object + '/SP.txt'))
+    file_list.append(str(filepath + object + '/SP.txt'))
 # Single object:
 # file_list.append(str('../evals/' + 'apple' + '/SP.txt'))
 
@@ -40,12 +40,14 @@ matrix_polar = polarize(matrix)  # All items are -1 or 1
 df = pd.DataFrame(matrix,
                   index=[str(i) for i in range(0, 75)],#DataFrame的行标签设置为大写字母
                   columns=object_list)#设置DataFrame的列标签
-plt.figure(dpi=200, figsize=(8,8))
+plt.figure(dpi=200, figsize=(8, 8))
 sns.heatmap(data=df,
-            vmin=-1,
-            vmax=1,
+            vmin=-1,vmax=1,
+            cbar=False,
             cmap=sns.diverging_palette(10, 220, sep=10, n=11),#区分度显著色盘：sns.diverging_palette()使用
             annot=True, fmt=".2f", annot_kws={'size':5,'weight':'normal'},
            )
 plt.title("SP(location1)")
+plt.xlabel('Object class')
+plt.ylabel('Time series(frame)')
 plt.show()
